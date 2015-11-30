@@ -1,0 +1,143 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Haz cosas, Masles Roy, cabrón.</title>
+<link href='https://fonts.googleapis.com/css?family=Biryani:400,300' rel='stylesheet' type='text/css'>
+<style>
+body{font-family: 'Biryani', sans-serif;font-weight:300;}
+aside{position:fixed;top:0;left:0;width:30vw;height:100vh;background-color:black;color:white;}
+	#clock{width:70%;margin:0 auto;border:white 1px solid;border-radius:50%;display:flex;flex-direction:column;align-items:center;align-content:center;justify-content:center;}
+		#clock p{text-align:center;}
+h1{text-align:center;font-weight:300;}
+.extrasize{font-size:50px;margin:0;}
+main{margin-left:30vw;}
+</style>
+</head>
+<body>
+
+<aside>
+	<h1>Temporizador de tareas de <br>Masles Roy</h1>
+
+	<div id="clock">
+		<div id="wrapper">
+			<p><span id="dia"></span> DE <span id="mes"></span> DE <span id="ano"></span>
+			<p class="extrasize"><span id="hora"></span>:<span id="minuto"></span></span></p>
+		</div>
+	</div>
+</aside>
+
+
+<main>
+
+<button>Empezar temporizador</button>
+<p id="elapsed"></p>
+
+</main>
+
+<script>
+var ch = document.querySelector('#clock').offsetWidth;
+document.querySelector('#clock').style.height = ch + 'px';
+</script>
+
+<script>
+var hour;
+var minute;
+var second;
+var monthnumber;
+var monthday;
+var year;
+
+function pad(number) {
+     return (number < 10 ? '0' : '') + number
+}
+
+
+function getCurrentTime() {
+	"use strict";
+	var now = new Date();
+	hour        = pad(now.getHours());
+	minute      = pad(now.getMinutes());
+	second      = pad(now.getSeconds());
+	monthnumber = now.getMonth() + 1;
+	monthday    = now.getDate();
+	year        = now.getYear() + 1900;
+
+	switch (monthnumber) {
+		case 1:
+			monthnumber = "enero";break;
+		case 2:
+			monthnumber = "febrero";break;
+		case 3:
+			monthnumber = "marzo";break;
+		case 4:
+			monthnumber = "abril";break;
+		case 5:
+			monthnumber = "mayo";break;
+		case 6:
+			monthnumber = "junio";break;
+		case 7:
+			monthnumber = "julio";break;
+		case 8:
+			monthnumber = "agosto";break;
+		case 9:
+			monthnumber = "noviembre";break;
+		case 10:
+			monthnumber = "noviembre";break;
+		case 11:
+			monthnumber = "noviembre";break;
+		case 12:
+			monthnumber = "noviembre";break;
+	};
+	console.log('pillada la hora ' + hour + ':' + minute + ':' + second);
+};
+
+
+
+function prTime() {
+	"use strict";
+	document.querySelector('#dia').innerHTML = monthday;
+	document.querySelector('#minuto').innerHTML = minute;
+	document.querySelector('#mes').innerHTML = monthnumber.toUpperCase();
+	document.querySelector('#hora').innerHTML = hour;
+	document.querySelector('#ano').innerHTML = year;
+	console.log('renderizada la hora ' + hour + ':' + minute + ':' + second);
+};
+
+var timing = false;
+var elapsedTime = 0;
+
+function timer() {
+	if(timing == true){
+		elapsedTime++;
+		document.querySelector('#elapsed').innerHTML = "Llevas " + Math.round(elapsedTime/60) + " minutos.";
+	}else{elapsedTime = 0;};
+};
+
+
+function clock(){getCurrentTime();prTime();timer();};
+
+window.onload = clock();
+
+window.setInterval(clock, 1000);
+
+document.querySelector('button').onclick = function(){
+	if(timing == false){timing = true;document.querySelector('button').innerHTML = "Parar temporizador";}
+	else{timing = false;document.querySelector('button').innerHTML = "Empezar temporizador";};
+};
+
+
+</script>
+
+<audio>
+
+</audio>
+
+<script>
+/*function storetasks(){
+	localStorage.setItem(("dia" + monthday + monthnumber + year), "cual");
+};*/
+</script>
+
+
+</body>
+</html>
